@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ClassRoomOperations.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">assignmentjava802</a> &gt; <a href="index.source.html" class="el_package">edu.knoldus.application1</a> &gt; <span class="el_source">ClassRoomOperations.java</span></div><h1>ClassRoomOperations.java</h1><pre class="source lang-java linenums">package edu.knoldus.application1;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+<span class="nc" id="L7">public class ClassRoomOperations {</span>
+
+
+    public static Optional&lt;List&lt;Student&gt;&gt; getStudentsWitNoSubjects(ClassRoom classRoomObject) {
+
+<span class="fc" id="L12">        return classRoomObject.getStudentList().map(classList -&gt; classList.stream()</span>
+<span class="fc bfc" id="L13" title="All 2 branches covered.">                .filter(student -&gt; !student.getSubject().isPresent())</span>
+<span class="fc" id="L14">                .collect(Collectors.toList()));</span>
+    }
+
+    public static void getSubjectLinkWithRoomId(int roomId, List&lt;ClassRoom&gt; classRoomObject) {
+
+<span class="nc bnc" id="L19" title="All 2 branches missed.">        classRoomObject.stream().filter(id -&gt; id.getRoomId() == roomId).map(id -&gt; id.getStudentList().get())</span>
+<span class="nc" id="L20">                .flatMap(subjects -&gt; subjects.stream().map(s -&gt; s.getName() + s.getSubject()))</span>
+<span class="nc" id="L21">                .forEach(System.out::print);</span>
+<span class="nc" id="L22">    }</span>
+
+    public static void helloStudent(ClassRoom classRoomObject) {
+<span class="nc bnc" id="L25" title="All 2 branches missed.">        if (classRoomObject.getStudentList().isPresent()) {</span>
+<span class="nc" id="L26">            List&lt;Student&gt; studentList = classRoomObject.getStudentList().get();</span>
+<span class="nc" id="L27">            studentList.forEach(studentName -&gt; System.out.println(&quot;Hello: &quot; + studentName));</span>
+        }
+<span class="nc" id="L29">    }</span>
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

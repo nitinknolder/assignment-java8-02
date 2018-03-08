@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Operations.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">assignmentjava802</a> &gt; <a href="index.source.html" class="el_package">edu.knoldus.application2</a> &gt; <span class="el_source">Operations.java</span></div><h1>Operations.java</h1><pre class="source lang-java linenums">package edu.knoldus.application2;
+
+import twitter4j.Query;
+import twitter4j.Status;
+import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
+import twitter4j.auth.AccessToken;
+
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.List;
+import java.util.Properties;
+import java.util.concurrent.CompletableFuture;
+
+public class Operations {
+<span class="nc" id="L16">    private twitter4j.Twitter twitter = new TwitterFactory().getInstance();</span>
+    private Query query;
+
+    /* Import Twitter Configuration Files and set count of
+    50 so that only 50 post related to hashTags will Printed */
+<span class="nc" id="L21">    public Operations(final String hashTag) {</span>
+<span class="nc" id="L22">        Properties properties = new Properties();</span>
+        try {
+<span class="nc" id="L24">            InputStream input = new FileInputStream(&quot;/home/knoldus/IdeaProjects&quot;</span>
+                    + &quot;/assignmentjava802/src/main/resources/config.properties&quot;);
+<span class="nc" id="L26">            properties.load(input);</span>
+<span class="nc" id="L27">            twitter.setOAuthConsumer(properties.getProperty(&quot;consumerKey&quot;),</span>
+<span class="nc" id="L28">                    properties.getProperty(&quot;consumerSecretKey&quot;));</span>
+<span class="nc" id="L29">            twitter.setOAuthAccessToken(new AccessToken(properties.getProperty(&quot;accessToken&quot;),</span>
+<span class="nc" id="L30">                    properties.getProperty(&quot;accessTokenSecret&quot;)));</span>
+<span class="nc" id="L31">            query = new Query(hashTag);</span>
+<span class="nc" id="L32">            query.setCount(50);</span>
+<span class="nc" id="L33">        } catch (Exception msg) {</span>
+<span class="nc" id="L34">            msg.printStackTrace();</span>
+<span class="nc" id="L35">        }</span>
+<span class="nc" id="L36">    }</span>
+
+    /* get Total Number Tweets On the
+  Basis of HashTags*/
+    public CompletableFuture&lt;Integer&gt; getTotalNoOfTweets() {
+<span class="nc" id="L41">        return CompletableFuture.supplyAsync(() -&gt; {</span>
+<span class="nc" id="L42">            Integer numOfTweetCounts = 0;</span>
+            try {
+<span class="nc" id="L44">                numOfTweetCounts = twitter.search(query).getTweets().size();</span>
+<span class="nc" id="L45">            } catch (TwitterException msg) {</span>
+<span class="nc" id="L46">                msg.getMessage();</span>
+<span class="nc" id="L47">            }</span>
+<span class="nc" id="L48">            return numOfTweetCounts;</span>
+<span class="nc" id="L49">        }).thenApply(tweets -&gt; {</span>
+<span class="nc" id="L50">            System.out.println(&quot;Total Number Of Tweets: &quot; + tweets);</span>
+<span class="nc" id="L51">            return tweets;</span>
+        });
+    }
+
+    /* get AverageTweets Per Day On the
+  Basis of HashTags*/
+
+    public CompletableFuture&lt;Double&gt; getAverageTweetsPerDay() {
+<span class="nc" id="L59">        return CompletableFuture.supplyAsync(() -&gt; {</span>
+<span class="nc" id="L60">            Double averagePerDayTweetCount = 0.0;</span>
+            try {
+<span class="nc" id="L62">                averagePerDayTweetCount = twitter.search(query).getTweets().size() / 7.0;</span>
+<span class="nc" id="L63">            } catch (TwitterException msg) {</span>
+<span class="nc" id="L64">                msg.getMessage();</span>
+<span class="nc" id="L65">            }</span>
+<span class="nc" id="L66">            return averagePerDayTweetCount;</span>
+<span class="nc" id="L67">        }).thenApply(tweets -&gt; {</span>
+<span class="nc" id="L68">            System.out.println(&quot;Average Tweets Per Day: &quot; + tweets);</span>
+<span class="nc" id="L69">            return tweets;</span>
+        });
+    }
+
+    /* get Average Number Of Likes On the
+  Basis of HashTags*/
+
+    public CompletableFuture&lt;Double&gt; getAverageNumOfLikes() {
+<span class="nc" id="L77">        return CompletableFuture.supplyAsync(() -&gt; {</span>
+<span class="nc" id="L78">            Double averageLikeTweetCount = 0.0;</span>
+            try {
+<span class="nc" id="L80">                List&lt;Status&gt; twitterStatus = twitter.search(query).getTweets();</span>
+<span class="nc" id="L81">                Double tweetsCount = twitterStatus.size() + 0.0;</span>
+<span class="nc" id="L82">                averageLikeTweetCount = twitterStatus.parallelStream()</span>
+<span class="nc" id="L83">                        .map(tweets -&gt; tweets.getFavoriteCount())</span>
+<span class="nc" id="L84">                        .reduce((t1, t2) -&gt; t1 + t2).get() / tweetsCount;</span>
+<span class="nc" id="L85">            } catch (TwitterException msg) {</span>
+<span class="nc" id="L86">                msg.getMessage();</span>
+<span class="nc" id="L87">            }</span>
+<span class="nc" id="L88">            return averageLikeTweetCount;</span>
+<span class="nc" id="L89">        }).thenApply(tweets -&gt; {</span>
+<span class="nc" id="L90">            System.out.println(&quot;Average Like PerTweet: &quot; + tweets);</span>
+<span class="nc" id="L91">            return tweets;</span>
+        });
+    }
+
+    /* get Average Number Of ReTweets On the
+  Basis of HashTags*/
+
+    public CompletableFuture&lt;Double&gt; getAverageReTweets() {
+<span class="nc" id="L99">        return CompletableFuture.supplyAsync(() -&gt; {</span>
+<span class="nc" id="L100">            Double countOfReTweet = 0.0;</span>
+            try {
+<span class="nc" id="L102">                List&lt;Status&gt; twitterStatus = twitter.search(query).getTweets();</span>
+<span class="nc" id="L103">                Double twitterSize = twitterStatus.size() + 0.0;</span>
+<span class="nc" id="L104">                countOfReTweet = twitterStatus.parallelStream()</span>
+<span class="nc" id="L105">                        .map(tweets -&gt; tweets.getRetweetCount()).reduce((a, b) -&gt; a + b).get() / twitterSize;</span>
+<span class="nc" id="L106">            } catch (TwitterException msg) {</span>
+<span class="nc" id="L107">                msg.getMessage();</span>
+<span class="nc" id="L108">            }</span>
+<span class="nc" id="L109">            return countOfReTweet;</span>
+<span class="nc" id="L110">        }).thenApply(tweets -&gt; {</span>
+<span class="nc" id="L111">            System.out.println(&quot;Average ReTweets PerTweet: &quot; + tweets);</span>
+<span class="nc" id="L112">            return tweets;</span>
+        });
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

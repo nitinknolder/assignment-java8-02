@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>TwitterApplication.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">assignmentjava802</a> &gt; <a href="index.source.html" class="el_package">edu.knoldus.application2</a> &gt; <span class="el_source">TwitterApplication.java</span></div><h1>TwitterApplication.java</h1><pre class="source lang-java linenums">package edu.knoldus.application2;
+
+import java.util.Scanner;
+
+<span class="nc" id="L5">public class TwitterApplication {</span>
+
+    public static void main(String[] args) {
+
+<span class="nc" id="L9">        Operations objectOfOperation = new Operations(&quot;#ViratKohli&quot;);</span>
+<span class="nc" id="L10">        System.out.println(&quot;1: Total Tweets \n2: Average Tweets Per Day \n&quot;</span>
+                + &quot;3: Average Likes \n4: Average ReTweets&quot;);
+<span class="nc" id="L12">        Scanner scannerObject = new Scanner(System.in);</span>
+<span class="nc" id="L13">        System.out.println(&quot;Enter Your choice: &quot;);</span>
+<span class="nc" id="L14">        Integer userChoice = scannerObject.nextInt();</span>
+
+<span class="nc bnc" id="L16" title="All 5 branches missed.">        switch (userChoice) {</span>
+            case 1:
+<span class="nc" id="L18">                objectOfOperation.getTotalNoOfTweets();</span>
+                try {
+<span class="nc" id="L20">                    Thread.sleep(5000);</span>
+<span class="nc" id="L21">                } catch (InterruptedException e) {</span>
+<span class="nc" id="L22">                    e.getMessage();</span>
+<span class="nc" id="L23">                }</span>
+<span class="nc" id="L24">                break;</span>
+            case 2:
+<span class="nc" id="L26">                objectOfOperation.getAverageTweetsPerDay();</span>
+                try {
+<span class="nc" id="L28">                    Thread.sleep(5000);</span>
+<span class="nc" id="L29">                } catch (InterruptedException e) {</span>
+<span class="nc" id="L30">                    e.getMessage();</span>
+<span class="nc" id="L31">                }</span>
+<span class="nc" id="L32">                break;</span>
+            case 3:
+<span class="nc" id="L34">                objectOfOperation.getAverageNumOfLikes();</span>
+                try {
+<span class="nc" id="L36">                    Thread.sleep(5000);</span>
+<span class="nc" id="L37">                } catch (InterruptedException e) {</span>
+<span class="nc" id="L38">                    e.getMessage();</span>
+<span class="nc" id="L39">                }</span>
+<span class="nc" id="L40">                break;</span>
+            case 4:
+<span class="nc" id="L42">                objectOfOperation.getAverageReTweets();</span>
+                try {
+<span class="nc" id="L44">                    Thread.sleep(5000);</span>
+<span class="nc" id="L45">                } catch (InterruptedException e) {</span>
+<span class="nc" id="L46">                    e.getMessage();</span>
+<span class="nc" id="L47">                }</span>
+<span class="nc" id="L48">                break;</span>
+            default:
+<span class="nc" id="L50">                System.out.println(&quot;You Have Entered Wrong Choice!!!&quot;);</span>
+        }
+<span class="nc" id="L52">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="6.11.2">
+<file name="/home/knoldus/IdeaProjects/assignmentjava802/src/main/java/edu/knoldus/package-info.java">
+</file>
+<file name="/home/knoldus/IdeaProjects/assignmentjava802/src/main/java/edu/knoldus/application2/package-info.java">
+</file>
+<file name="/home/knoldus/IdeaProjects/assignmentjava802/src/main/java/edu/knoldus/application2/Operations.java">
+</file>
+<file name="/home/knoldus/IdeaProjects/assignmentjava802/src/main/java/edu/knoldus/application2/TwitterApplication.java">
+</file>
+<file name="/home/knoldus/IdeaProjects/assignmentjava802/src/main/java/edu/knoldus/application1/package-info.java">
+</file>
+<file name="/home/knoldus/IdeaProjects/assignmentjava802/src/main/java/edu/knoldus/application1/ClassRoomOperations.java">
+</file>
+<file name="/home/knoldus/IdeaProjects/assignmentjava802/src/main/java/edu/knoldus/application1/ClassRoom.java">
+</file>
+<file name="/home/knoldus/IdeaProjects/assignmentjava802/src/main/java/edu/knoldus/application1/MainClassRoom.java">
+</file>
+<file name="/home/knoldus/IdeaProjects/assignmentjava802/src/main/java/edu/knoldus/application1/Student.java">
+</file>
+<file name="/home/knoldus/IdeaProjects/assignmentjava802/src/main/resources/config.properties">
+</file>
+</checkstyle>
